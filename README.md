@@ -1,3 +1,44 @@
+🔗 Blockchain Implementation in Java
+
+This project is a simple blockchain prototype built using Java. It helps you understand how blockchain works by demonstrating the core concepts like:
+
+✅ Block creation
+
+🔒 Hashing using SHA-256
+
+⛏️ Proof-of-Work (mining)
+
+🔗 Linking blocks to form a chain
+
+🔍 Chain validation
+
+ What’s Inside?
+
+Each block contains:
+
+Data (like a message or transaction)
+
+Timestamp
+
+Hash of the current block
+
+Hash of the previous block
+
+Nonce (used for mining)
+
+
+Features:
+
+Basic structure of a blockchain
+
+Simple mining process using Proof-of-Work
+
+Validation to check blockchain integrity
+
+Why Java?
+
+Java is widely used, secure, and object-oriented — making it perfect for understanding how blockchain technology works at the code level.
+
 # Blockchain-implementation-using-Java-import java.util.ArrayList;
 import java.util.Date;
 import java.security.MessageDigest;
