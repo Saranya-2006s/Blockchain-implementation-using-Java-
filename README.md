@@ -140,3 +140,70 @@ public class Blockchain {
         return true;
     }
 }
+
+Extra Code: Adding Digital Signatures (ECDSA)
+
+This feature adds more security by allowing users to sign their transactions.
+
+1. Add required imports:
+
+import java.security.*;
+import java.util.Base64;
+
+2. Utility class for cryptography (SignatureUtil.java):
+
+public class SignatureUtil {
+
+    // Generate a new key pair (private and public)
+    public static KeyPair generateKeyPair() throws NoSuchAlgorithmException {
+        KeyPairGenerator keyGen = KeyPairGenerator.getInstance("EC");
+        keyGen.initialize(256);
+        return keyGen.generateKeyPair();
+    }
+
+    // Apply ECDSA signature
+    public static byte[] applySignature(PrivateKey privateKey, String data) throws Exception {
+        Signature dsa = Signature.getInstance("SHA256withECDSA");
+        dsa.initSign(privateKey);
+        dsa.update(data.getBytes());
+        return dsa.sign();
+    }
+
+    // Verify ECDSA signature
+    public static boolean verifySignature(PublicKey publicKey, String data, byte[] signature) throws Exception {
+        Signature ecdsaVerify = Signature.getInstance("SHA256withECDSA");
+        ecdsaVerify.initVerify(publicKey);
+        ecdsaVerify.update(data.getBytes());
+        return ecdsaVerify.verify(signature);
+    }
+
+    // Convert key to Base64 string
+    public static String keyToString(Key key) {
+        return Base64.getEncoder().encodeToString(key.getEncoded());
+    }
+}
+
+3. Example usage:
+
+public class DigitalSignatureDemo {
+    public static void main(String[] args) throws Exception {
+        // Generate key pair
+        KeyPair keyPair = SignatureUtil.generateKeyPair();
+
+        // Sign some data
+        String data = "Hello, this is a secure transaction!";
+        byte[] signature = SignatureUtil.applySignature(keyPair.getPrivate(), data);
+
+        // Verify the signature
+        boolean isVerified = SignatureUtil.verifySignature(keyPair.getPublic(), data, signature);
+
+        System.out.println("Signature Verified: " + isVerified);
+    }
+}
+
+ Conclusion:
+
+This project showed how to build a basic blockchain using Java and even added digital signatures for better security. We learned how blocks are linked, how hashing keeps data secure, and how to validate transactions.
+
+The added digital signature feature shows how users can sign data to ensure it’s not tampered with. Although this is a simple version, it's a great starting point for exploring more advanced blockchain topics like smart contracts, wallets, and decentralized apps. With more features, this project can become a strong foundation for real-world blockchain development.
+
